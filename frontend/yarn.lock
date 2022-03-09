@@ -244,6 +244,9 @@ ansi-styles@^4.1.0:
   dependencies:
     color-convert "^2.0.1"
 
+"api-client@file:../backend/build/generated_frontend":
+  version "1.0.0"
+
 argparse@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/argparse/-/argparse-2.0.1.tgz#246f50f3ca78a3240f6c997e8a9bd1eac49e4b38"

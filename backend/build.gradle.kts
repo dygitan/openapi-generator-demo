@@ -66,8 +66,23 @@ tasks.create("openApiGenerate_Backend", org.openapitools.generator.gradle.plugin
 	))
 }
 
+tasks.create("openApiGenerate_Frontend", org.openapitools.generator.gradle.plugin.tasks.GenerateTask::class) {
+	generatorName.set("typescript-fetch")
+	inputSpec.set("$rootDir/src/main/resources/openapi/specs.yaml")
+	outputDir.set("$buildDir/generated_frontend")
+
+	configOptions.set(mapOf(
+		"npmName" to "api-client",
+		"npmVersion" to "1.0.0",
+		"modelPropertyNaming" to "original",
+		"enumPropertyNaming" to "original",
+		"withInterfaces" to "true"
+	))
+}
+
 tasks.withType<KotlinCompile> {
 	dependsOn("openApiGenerate_Backend")
+	dependsOn("openApiGenerate_Frontend")
 
 	kotlinOptions {
 		freeCompilerArgs = listOf("-Xjsr305=strict")
