@@ -1,0 +1,17 @@
+paths:
+  createUser:
+    get:
+      tags:
+        - User
+      operationId: createUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ../schemas/CreateUserDto.yaml#/CreateUserDto
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: ../schemas/UserDto.yaml#/UserDto

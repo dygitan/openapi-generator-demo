@@ -1,0 +1,10 @@
+openapi: 3.0.0
+
+info:
+  description: Api description here
+  version: "1.0.0"
+  title: API Title
+
+paths:
+  /user:
+    $ref: ./user/paths/userIndex.yaml#/paths

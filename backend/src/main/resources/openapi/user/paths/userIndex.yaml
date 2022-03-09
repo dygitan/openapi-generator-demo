@@ -1,0 +1,30 @@
+paths:
+  get:
+    tags:
+      - User
+    operationId: getUsers
+    responses:
+      200:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: ../schemas/UserDto.yaml#/UserDto
+
+  post:
+    tags:
+      - User
+    operationId: createUser
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/CreateUserDto.yaml#/CreateUserDto
+    responses:
+      200:
+        content:
+          application/json:
+            schema:
+              $ref: ../schemas/UserDto.yaml#/UserDto
