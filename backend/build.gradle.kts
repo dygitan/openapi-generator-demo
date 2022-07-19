@@ -51,9 +51,9 @@ repositories {
 	mavenCentral()
 }
 
-tasks.create("openApiGenerate_Backend", org.openapitools.generator.gradle.plugin.tasks.GenerateTask::class) {
+tasks.create("generateApiSpecsBackend", org.openapitools.generator.gradle.plugin.tasks.GenerateTask::class) {
 	generatorName.set("kotlin-spring")
-	inputSpec.set("$rootDir/src/main/resources/openapi/specs.yaml")
+	inputSpec.set("${File("$rootDir").parentFile}/openapi/specs.yaml")
 	outputDir.set("$buildDir/generated")
 
 	apiPackage.set("github.dygitan.openapi.demo.generated.api")
@@ -66,9 +66,9 @@ tasks.create("openApiGenerate_Backend", org.openapitools.generator.gradle.plugin
 	))
 }
 
-tasks.create("openApiGenerate_Frontend", org.openapitools.generator.gradle.plugin.tasks.GenerateTask::class) {
+tasks.create("generateApiSpecsFrontend", org.openapitools.generator.gradle.plugin.tasks.GenerateTask::class) {
 	generatorName.set("typescript-fetch")
-	inputSpec.set("$rootDir/src/main/resources/openapi/specs.yaml")
+	inputSpec.set("${File("$rootDir").parentFile}/openapi/specs.yaml")
 	outputDir.set("$buildDir/generated_frontend")
 
 	configOptions.set(mapOf(
@@ -81,8 +81,7 @@ tasks.create("openApiGenerate_Frontend", org.openapitools.generator.gradle.plugi
 }
 
 tasks.withType<KotlinCompile> {
-	dependsOn("openApiGenerate_Backend")
-	dependsOn("openApiGenerate_Frontend")
+	dependsOn("generateApiSpecsBackend")
 
 	kotlinOptions {
 		freeCompilerArgs = listOf("-Xjsr305=strict")
