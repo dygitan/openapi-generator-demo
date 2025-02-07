@@ -1,4 +1,4 @@
-package github.dygitan.openapi.demo
+package github.tanpatrick.openapi.demo
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest

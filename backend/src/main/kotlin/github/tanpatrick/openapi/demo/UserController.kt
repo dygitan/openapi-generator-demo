@@ -1,8 +1,8 @@
-package github.dygitan.openapi.demo
+package github.tanpatrick.openapi.demo
 
-import github.dygitan.openapi.demo.generated.api.UserApi
-import github.dygitan.openapi.demo.generated.model.CreateUserDto
-import github.dygitan.openapi.demo.generated.model.UserDto
+import github.tanpatrick.openapi.demo.generated.api.UserApi
+import github.tanpatrick.openapi.demo.generated.model.CreateUserDto
+import github.tanpatrick.openapi.demo.generated.model.UserDto
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.RequestMapping

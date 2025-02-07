@@ -1,4 +1,4 @@
-package github.dygitan.openapi.demo
+package github.tanpatrick.openapi.demo
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

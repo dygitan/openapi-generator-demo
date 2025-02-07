@@ -50,9 +50,9 @@ tasks.register("generateApiSpecsBackend", org.openapitools.generator.gradle.plug
 	inputSpec.set("${File("$rootDir").parentFile}/openapi/specs.yaml")
 	outputDir.set("${project.layout.buildDirectory.get()}/generated")
 
-	apiPackage.set("github.dygitan.openapi.demo.generated.api")
-	modelPackage.set("github.dygitan.openapi.demo.generated.model")
-	packageName.set("github.dygitan.openapi.demo.generated")
+	apiPackage.set("github.tanpatrick.openapi.demo.generated.api")
+	modelPackage.set("github.tanpatrick.openapi.demo.generated.model")
+	packageName.set("github.tanpatrick.openapi.demo.generated")
 
 	configOptions.set(mapOf(
 		"documentationProvider" to "none",

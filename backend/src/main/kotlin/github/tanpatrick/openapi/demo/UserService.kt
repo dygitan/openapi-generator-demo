@@ -1,7 +1,7 @@
-package github.dygitan.openapi.demo
+package github.tanpatrick.openapi.demo
 
-import github.dygitan.openapi.demo.generated.model.CreateUserDto
-import github.dygitan.openapi.demo.generated.model.UserDto
+import github.tanpatrick.openapi.demo.generated.model.CreateUserDto
+import github.tanpatrick.openapi.demo.generated.model.UserDto
 import org.springframework.stereotype.Service
 
 @Service
