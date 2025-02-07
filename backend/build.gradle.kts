@@ -1,22 +1,16 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
-group = "github.dygitan"
+group = "github.tanpatrick"
 version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_17
-
-buildscript {
-	repositories {
-		gradlePluginPortal()
-	}
-	dependencies {
-		classpath("org.openapitools:openapi-generator-gradle-plugin:5.4.0")
-	}
-}
 
 configure<SourceSetContainer> {
 	kotlin.sourceSets {
 		named("main") {
-			kotlin.srcDirs("src/main/kotlin", "$buildDir/generated/src/main/kotlin")
+			kotlin.srcDirs(
+				"src/main/kotlin",
+				"${project.layout.buildDirectory.get()}/generated/src/main/kotlin"
+			)
 		}
 	}
 }
@@ -34,7 +28,7 @@ dependencies {
 }
 
 plugins {
-	val kotlinVersion = "1.6.10"
+	val kotlinVersion = "2.1.10"
 
 	kotlin("jvm") version kotlinVersion
 
@@ -43,33 +37,38 @@ plugins {
 
 	id("io.spring.dependency-management") version "1.0.11.RELEASE"
 
-	id("org.openapi.generator") version "5.4.0"
-	id("org.springframework.boot") version "2.6.3"
+	id("org.openapi.generator") version "7.11.0"
+	id("org.springframework.boot") version "3.4.0"
 }
 
 repositories {
 	mavenCentral()
 }
 
-tasks.create("generateApiSpecsBackend", org.openapitools.generator.gradle.plugin.tasks.GenerateTask::class) {
+tasks.register("generateApiSpecsBackend", org.openapitools.generator.gradle.plugin.tasks.GenerateTask::class) {
 	generatorName.set("kotlin-spring")
 	inputSpec.set("${File("$rootDir").parentFile}/openapi/specs.yaml")
-	outputDir.set("$buildDir/generated")
+	outputDir.set("${project.layout.buildDirectory.get()}/generated")
 
 	apiPackage.set("github.dygitan.openapi.demo.generated.api")
 	modelPackage.set("github.dygitan.openapi.demo.generated.model")
 	packageName.set("github.dygitan.openapi.demo.generated")
 
 	configOptions.set(mapOf(
+		"documentationProvider" to "none",
+		"exceptionHandler" to "false",
 		"interfaceOnly" to "true",
-		"useTags" to "true"
+		"useBeanValidation" to "false",
+		"useJakartaEe" to "true",
+		"useSpringBoot3" to "true",
+		"useTags" to "true",
 	))
 }
 
-tasks.create("generateApiSpecsFrontend", org.openapitools.generator.gradle.plugin.tasks.GenerateTask::class) {
+tasks.register("generateApiSpecsFrontend", org.openapitools.generator.gradle.plugin.tasks.GenerateTask::class) {
 	generatorName.set("typescript-fetch")
 	inputSpec.set("${File("$rootDir").parentFile}/openapi/specs.yaml")
-	outputDir.set("$buildDir/generated_frontend")
+	outputDir.set("${project.layout.buildDirectory.get()}/generated_frontend")
 
 	configOptions.set(mapOf(
 		"npmName" to "api-client",
@@ -80,12 +79,12 @@ tasks.create("generateApiSpecsFrontend", org.openapitools.generator.gradle.plugi
 	))
 }
 
-tasks.withType<KotlinCompile> {
+tasks.compileKotlin {
 	dependsOn("generateApiSpecsBackend")
 
-	kotlinOptions {
-		freeCompilerArgs = listOf("-Xjsr305=strict")
-		jvmTarget = "17"
+	compilerOptions {
+		freeCompilerArgs.add("-Xjsr305=strict")
+		jvmTarget.set(JvmTarget.JVM_17)
 	}
 }
 
